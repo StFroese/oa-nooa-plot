@@ -30,13 +30,13 @@ jobs:
         name: oa-ratios-${{ github.run_id }}
         path: |
           data.csv
-          plot.pdf
+          OSvsNOA.pdf
 
     - name: Release with artefacts
       uses: softprops/action-gh-release@v2
       with:
         tag_name: oa-ratios-${{ github.run_id }}
-        name: OA ratios $(date -u +'%Y-%m-%d')
+        name: OA vs NOA ratios $(date -u +'%Y-%m-%d')
         files: |
           data.csv
-          plot.pdf
+          OSvsNOA.pdf
