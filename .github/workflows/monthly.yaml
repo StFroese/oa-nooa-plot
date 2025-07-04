@@ -4,6 +4,10 @@ on:
     - cron:  '0 3 1 * *'      # 03:00 UTC on the 1st
   workflow_dispatch: {}
 
+permissions:
+  contents: write
+  id-token: write
+
 jobs:
   build:
     runs-on: ubuntu-latest
