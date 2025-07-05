@@ -47,3 +47,14 @@ jobs:
         files: |
           data.csv
           OSvsNOA.pdf
+
+  zenodo:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: megasanjay/upload-to-zenodo@v2
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          zenodo_token: ${{ secrets.ZENODO_TOKEN }}
+          zenodo_deposition_id: ${{ secrets.ZENODO_DEPOSITION_ID }}
+          zenodo_publish: true
+          zenodo_json: true

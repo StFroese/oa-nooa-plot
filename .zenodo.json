@@ -1,0 +1,21 @@
+{
+  "title": "OA vs NOA Citation Ratios",
+  "upload_type": "dataset",
+  "description": "Automated monthly plot of citation ratios using OpenAlex data. This includes a PDF visualization and supporting CSV generated from OpenAlex (CC0) data.",
+  "creators": [
+    {
+      "name": "Fröse, Stefan",
+      "orcid": "0000-0003-1832-4129"
+    }
+  ],
+  "license": "CC0-1.0",
+  "access_right": "open",
+  "keywords": [
+    "open access",
+    "citation analysis",
+    "OpenAlex",
+    "bibliometrics",
+    "OA advantage"
+  ],
+  "notes": "Generated via GitHub Actions. Source code and workflow available at: https://github.com/StFroese/oa-nooa-plot"
+}
