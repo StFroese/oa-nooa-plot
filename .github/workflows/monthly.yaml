@@ -49,9 +49,10 @@ jobs:
           OSvsNOA.pdf
 
   zenodo:
+    needs: build
     runs-on: ubuntu-latest
     steps:
-      - uses: megasanjay/upload-to-zenodo@v2
+      - uses: megasanjay/upload-to-zenodo
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           zenodo_token: ${{ secrets.ZENODO_TOKEN }}
