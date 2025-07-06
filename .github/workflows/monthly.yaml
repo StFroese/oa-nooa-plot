@@ -52,7 +52,7 @@ jobs:
     needs: build
     runs-on: ubuntu-latest
     steps:
-      - uses: megasanjay/upload-to-zenodo
+      - uses: megasanjay/upload-to-zenodo@v1
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           zenodo_token: ${{ secrets.ZENODO_TOKEN }}
