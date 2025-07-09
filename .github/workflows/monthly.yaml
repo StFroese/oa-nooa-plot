@@ -47,23 +47,3 @@ jobs:
         files: |
           data.csv
           OSvsNOA.pdf
-
-  zenodo:
-    needs: build
-    runs-on: ubuntu-latest
-    steps:
-      - name: Upload to Zenodo
-        id: release
-        uses: megasanjay/upload-to-zenodo@v2.0.1
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          zenodo_token: ${{ secrets.ZENODO_TOKEN }}
-          zenodo_deposition_id: SOME_DEPOSITION_ID
-          zenodo_publish: true
-          zenodo_sandbox: false
-          update_metadata_files: true
-          zenodo_json: true
-
-      # Get the doi from the `release` step
-      - name: Get the output doi
-        run: echo "The released doi was ${{ steps.release.outputs.doi }}"
