@@ -27,6 +27,7 @@ def main():
     plt.xlabel("OA / non-OA mean-citation ratio")
     plt.tight_layout()
     plt.savefig("OSvsNOA.pdf")
+    plt.savefig("OSvsNOA.png", dpi=150, bbox_inches='tight')
 
 
 if __name__ == "__main__":
