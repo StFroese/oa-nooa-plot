@@ -42,8 +42,10 @@ jobs:
     - name: Release with artefacts
       uses: softprops/action-gh-release@v2
       with:
-        tag_name: oa-ratios-${{ github.run_id }}
+        tag_name: latest-monthly
         name: OA vs NOA ratios ${{ steps.date.outputs.today }}
         files: |
           data.csv
           OSvsNOA.pdf
+        prerelease: false
+        make_latest: true
