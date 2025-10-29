@@ -5,7 +5,11 @@ This repository contains the code and CI to generate a monthly updated plot of O
 
 # Why
 
-I was reading the Turing way and came along an outdated Figure. 
-![](https://book.the-turing-way.org/build/open-access-citation-62511e34ee086f9e4891405dfbcb615c.jpg)
+I was reading the Turing way and came along an outdated [Figure](https://book.the-turing-way.org/build/open-access-citation-62511e34ee086f9e4891405dfbcb615c.jpg).
 
 Which was taken from a publication by [McKiernan et al.](https://doi.org/10.7554/eLife.16800).
+
+
+# Output
+
+![](output/OSvsNOA.png)
