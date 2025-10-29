@@ -1,7 +1,8 @@
 # oa-nooa-plot
 OA-NOOA ratio plot
 
-This repository contains the code and CI to generate a monthly updated plot of Open Access (OA) to Non-Open-Access (NOA) Ratios for different scientific fields.
+This repository contains the code and CI to generate a monthly updated plot of Open Access (OA) to Non-Open-Access (NOA) article ratios for different scientific fields.
+The data is taken from OpenAlex (CC0)!
 
 # Why
 
