@@ -29,23 +29,33 @@ jobs:
     - name: Make PDF plot
       run: python -m paywallfail.plot               # ← calls oa_ratios.plot:main
 
-    - uses: actions/upload-artifact@v4   # keep artefacts for debugging
-      with:
-        name: oa-ratios-${{ github.run_id }}
-        path: |
-          data.csv
-          OSvsNOA.pdf
+    - name: Move outputs to directory
+      run: |
+        mkdir -p output
+        mv OSvsNOA.pdf OSvsNOA.png data.csv output/
+          
     - name: Get today's date
       id: date
       run: echo "today=$(date -u +'%Y-%m-%d')" >> "$GITHUB_OUTPUT"
+
+    - name: Commit plots to repo
+      run: |
+        git config user.name github-actions
+        git config user.email github-actions@github.com
+        git add output/
+        git commit -m "Update monthly plot - ${{ steps.date.outputs.today }}" || echo "No changes"
+        git push
+        
+    - uses: actions/upload-artifact@v4
+      with:
+        name: oa-ratios-${{ github.run_id }}
+        path: output/*
 
     - name: Release with artefacts
       uses: softprops/action-gh-release@v2
       with:
         tag_name: latest-monthly
         name: OA vs NOA ratios ${{ steps.date.outputs.today }}
-        files: |
-          data.csv
-          OSvsNOA.pdf
+        files: output/*
         prerelease: false
         make_latest: true
