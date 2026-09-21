@@ -29,6 +29,8 @@ jobs:
         pip install -e .
 
     - name: Collect CSV
+      env:
+        OPENALEX_MAILTO: ${{ secrets.OPENALEX_MAILTO }}
       run: |
         if [ -n "${{ inputs.year }}" ]; then
           python -m paywallfail.data --year "${{ inputs.year }}"

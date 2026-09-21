@@ -1,9 +1,18 @@
 import argparse
 import datetime
+import os
 
+import pyalex
 from pyalex import Works, Topics
 import numpy as np
 import pandas as pd
+
+# The polite pool gives far higher rate limits than anonymous access, which
+# shared CI runners exhaust almost immediately.
+pyalex.config.email = os.environ.get("OPENALEX_MAILTO")
+pyalex.config.max_retries = 5
+pyalex.config.retry_backoff_factor = 1.0
+pyalex.config.retry_http_codes = [429, 500, 503]
 
 
 def default_year():
