@@ -1,9 +1,26 @@
+import argparse
+import datetime
+
 from pyalex import Works, Topics
 import numpy as np
 import pandas as pd
 
 
+def default_year():
+    """Last publication year that is complete at the time of the run."""
+    return datetime.date.today().year - 1
+
+
 def main():
+    parser = argparse.ArgumentParser()
+    parser.add_argument(
+        "--year",
+        type=int,
+        default=default_year(),
+        help="publication year to restrict the comparison to",
+    )
+    year = parser.parse_args().year
+
     domains = Topics().group_by("domain.id").get()
     domain_ids = [int(d["key"].split("/")[-1]) for d in domains]
     domain_names = [d["key_display_name"] for d in domains]
@@ -17,7 +34,10 @@ def main():
 
         for fn, fid in zip(field_names, field_ids):
             works_oa = (
-                Works().filter(primary_topic={"field": {"id": fid}}).filter(is_oa=True)
+                Works()
+                .filter(primary_topic={"field": {"id": fid}})
+                .filter(publication_year=year)
+                .filter(is_oa=True)
             )
             pager_oa = works_oa.group_by("cited_by_count").paginate(
                 per_page=200, n_max=None
@@ -34,7 +54,10 @@ def main():
             total_works_oa = works_oa.count()
 
             works_noa = (
-                Works().filter(primary_topic={"field": {"id": fid}}).filter(is_oa=False)
+                Works()
+                .filter(primary_topic={"field": {"id": fid}})
+                .filter(publication_year=year)
+                .filter(is_oa=False)
             )
             pager_noa = works_noa.group_by("cited_by_count").paginate(
                 per_page=200, n_max=None
@@ -54,6 +77,7 @@ def main():
 
             rows.append(
                 dict(
+                    year=year,
                     domain=dn,
                     field=fn,
                     oa_cites=cites_oa,

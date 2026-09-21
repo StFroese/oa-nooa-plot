@@ -25,6 +25,7 @@ def main():
     plt.gca().invert_yaxis()  # biggest ratio at the top
     plt.legend(loc="lower right", frameon=False)
     plt.xlabel("OA / non-OA mean-citation ratio")
+    plt.title(f"Works published in {df['year'].iloc[0]}")
     plt.tight_layout()
     plt.savefig("OSvsNOA.pdf")
     plt.savefig("OSvsNOA.png", dpi=150, bbox_inches='tight')

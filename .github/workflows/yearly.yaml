@@ -1,8 +1,13 @@
-name: Monthly OA-ratios run
+name: Yearly OA-ratios run
 on:
   schedule:
-    - cron:  '0 3 1 * *'      # 03:00 UTC on the 1st
-  workflow_dispatch: {}
+    - cron:  '0 3 1 2 *'      # 03:00 UTC on 1 February, for the year just ended
+  workflow_dispatch:
+    inputs:
+      year:
+        description: 'Publication year to analyse (default: last complete year)'
+        required: false
+        type: string
 
 permissions:
   contents: write
@@ -24,7 +29,12 @@ jobs:
         pip install -e .
 
     - name: Collect CSV
-      run: python -m paywallfail.data            # ← calls oa_ratios.collect:main
+      run: |
+        if [ -n "${{ inputs.year }}" ]; then
+          python -m paywallfail.data --year "${{ inputs.year }}"
+        else
+          python -m paywallfail.data
+        fi
 
     - name: Make PDF plot
       run: python -m paywallfail.plot               # ← calls oa_ratios.plot:main
@@ -43,7 +53,7 @@ jobs:
         git config user.name github-actions
         git config user.email github-actions@github.com
         git add output/
-        git commit -m "Update monthly plot - ${{ steps.date.outputs.today }}" || echo "No changes"
+        git commit -m "Update yearly plot - ${{ steps.date.outputs.today }}" || echo "No changes"
         git push
         
     - uses: actions/upload-artifact@v4
@@ -54,7 +64,7 @@ jobs:
     - name: Release with artefacts
       uses: softprops/action-gh-release@v2
       with:
-        tag_name: latest-monthly
+        tag_name: latest-yearly
         name: OA vs NOA ratios ${{ steps.date.outputs.today }}
         files: output/*
         prerelease: false
